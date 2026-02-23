@@ -7,10 +7,18 @@ name: Publish to PyPI
 
 on:
   release:
-    types: [published]
+    types: [published]          # triggers on GitHub Release publish
+  push:
+    tags:
+      - "v*"                    # triggers on any tag like v0.1.0, v1.0.0
+  workflow_dispatch:            # allows manual trigger from GitHub Actions UI
+    inputs:
+      version:
+        description: "Version to publish (e.g. 0.1.0)"
+        required: false
 
 permissions:
-  id-token: write  # Required for trusted publisher (OIDC)
+  id-token: write               # Required for OIDC trusted publisher
 
 jobs:
   build:

@@ -14,7 +14,7 @@ ext = Extension(
 
 setup(
     name="cipheron",
-    version="1.0.0",
+    version="0.1.0",
     author="Ankit Chaubey",
     author_email="ankitchaubey.dev@gmail.com",
     url="https://github.com/ankit-chaubey/cipheron",

@@ -9,7 +9,7 @@ build-backend = "setuptools.backends.legacy:build"
 
 [project]
 name = "cipheron"
-version = "1.0.0"
+version = "0.1.0"
 description = "ARM-CE / AES-NI accelerated Telegram crypto via OpenSSL EVP"
 readme = "README.md"
 license = { text = "MIT" }

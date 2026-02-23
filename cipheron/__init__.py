@@ -20,7 +20,7 @@ from ._cipheron import (
     has_aesni, get_backend,
 )
 
-__version__ = "1.0.0"
+__version__ = "0.1.0"
 __author__ = "Ankit Chaubey"
 __email__ = "ankitchaubey.dev@gmail.com"
 __license__ = "MIT"
