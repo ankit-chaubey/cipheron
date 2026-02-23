@@ -237,12 +237,15 @@ print(f'tgcrypto : {N / (time.perf_counter() - t) * 1024:.0f} MB/s')
 
 ---
 
+## 👨‍💻 Developed by [Ankit Chaubey](https://github.com/ankit-chaubey)  
+📧 ankitchaubey.dev@gmail.com  
+🌐 [github.com/ankit-chaubey/cipheron](https://github.com/ankit-chaubey/cipheron)
+
+---
+
 ## 📄 License
 
 [MIT](LICENSE) © 2024-Present [Ankit Chaubey](https://github.com/ankit-chaubey/cipheron)
-
-📧 ankitchaubey.dev@gmail.com  
-🌐 [github.com/ankit-chaubey/cipheron](https://github.com/ankit-chaubey/cipheron)
 
 ---
 
