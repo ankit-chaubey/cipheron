@@ -6,7 +6,7 @@
  */
 
 /*
- * telefast — ARM/AES-NI accelerated Telegram crypto
+ * cipheron — ARM/AES-NI accelerated Telegram crypto
  * Beats tgcrypto on IGE by routing through OpenSSL EVP (ARM CE / AES-NI)
  * instead of raw AES_encrypt() which bypasses hardware acceleration.
  *
@@ -450,15 +450,15 @@ static PyMethodDef methods[]={
 };
 
 static struct PyModuleDef moddef={
-    PyModuleDef_HEAD_INIT,"_telefast",
-    "telefast — EVP-routed IGE for full ARM-CE / AES-NI acceleration",
+    PyModuleDef_HEAD_INIT,"_cipheron",
+    "cipheron — EVP-routed IGE for full ARM-CE / AES-NI acceleration",
     -1, methods
 };
 
-PyMODINIT_FUNC PyInit__telefast(void){
+PyMODINIT_FUNC PyInit__cipheron(void){
     ssl_load();
     if(G.ok!=1){
-        PyErr_SetString(PyExc_ImportError,"telefast: OpenSSL not found");
+        PyErr_SetString(PyExc_ImportError,"cipheron: OpenSSL not found");
         return NULL;
     }
     return PyModule_Create(&moddef);

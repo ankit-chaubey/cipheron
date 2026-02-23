@@ -229,6 +229,21 @@ print(f'tgcrypto : {N / (time.perf_counter() - t) * 1024:.0f} MB/s')
 
 ---
 
+## 🔐 PyPI Trusted Publisher Setup (no API tokens)
+
+This project uses **OIDC Trusted Publisher** — publish on GitHub Release with no secrets needed.
+
+1. Go to [pypi.org/manage/account/publishing](https://pypi.org/manage/account/publishing/)
+2. Add trusted publisher:
+   - **PyPI project name:** `cipheron`
+   - **Owner:** `ankit-chaubey`
+   - **Repository:** `cipheron`
+   - **Workflow:** `publish.yml`
+   - **Environment:** `pypi`
+3. Create a GitHub Release → CI builds and publishes automatically ✅
+
+---
+
 ## 🙏 Credits & Inspiration
 
 - [**cryptogram**](https://github.com/pyrogram/cryptogram) ([PyPI](https://pypi.org/project/cryptogram/)) — the project that started it all. Highly recommended!

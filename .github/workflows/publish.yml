@@ -1,3 +1,8 @@
+# cipheron — ARM-CE / AES-NI accelerated Telegram crypto via OpenSSL EVP
+# Copyright (c) 2024-Present Ankit Chaubey <ankitchaubey.dev@gmail.com>
+# GitHub: https://github.com/ankit-chaubey/cipheron
+# License: MIT — see LICENSE file for details
+
 name: Publish to PyPI
 
 on:
@@ -57,3 +62,4 @@ jobs:
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
+        # No API token needed — uses OIDC trusted publisher
