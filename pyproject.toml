@@ -1,11 +1,6 @@
-# cipheron — ARM-CE / AES-NI accelerated Telegram crypto via OpenSSL EVP
-# Copyright (c) 2024-Present Ankit Chaubey <ankitchaubey.dev@gmail.com>
-# GitHub: https://github.com/ankit-chaubey/cipheron
-# License: MIT — see LICENSE file for details
-
 [build-system]
 requires = ["setuptools>=68", "wheel"]
-build-backend = "setuptools.backends.legacy:build"
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "cipheron"
