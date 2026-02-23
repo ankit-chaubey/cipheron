@@ -308,12 +308,15 @@ static const char* detect_backend(void){
     return cpu_has_aesni() ? "C/EVP+AES-NI" : "C/EVP+software";
 }
 #elif defined(__aarch64__)||defined(__arm__)
-/* ARM: check if OpenSSL actually uses hardware crypto by timing ECB */
-static int cpu_has_aesni(void){return 0;}   /* AES-NI is x86-only name */
-static const char* detect_backend(void){
-    /* If OpenSSL is using ARM CE, ECB throughput will be >400 MB/s.
-     * Run a quick timing probe: encrypt 1MB, see if throughput > 300 MB/s */
-    if (G.ok != 1) return "C/software";
+/* ARM: detect hardware AES by timing EVP ECB throughput once, cache result.
+ * has_aesni() returns 1 when ARM Crypto Extensions are active.
+ * Name kept for API compatibility with tgcrypto/cryptg. */
+static int   arm_hw_cached = -1;
+static const char* arm_backend_str = "C/EVP+software";
+
+static void arm_probe(void){
+    if (arm_hw_cached >= 0) return;
+    if (G.ok != 1){ arm_hw_cached = 0; return; }
     static char buf[64*1024];
     static char key[32];
     EVP_CIPHER_CTX *ctx = G.ctx_new();
@@ -321,15 +324,18 @@ static const char* detect_backend(void){
     G.c_pad(ctx, 0);
     struct timespec t0, t1;
     clock_gettime(CLOCK_MONOTONIC, &t0);
-    int ol=0,tmp=0;
+    int ol=0, tmp=0;
     for(int i=0;i<16;i++) G.c_update(ctx,(uint8_t*)buf,&ol,(uint8_t*)buf,sizeof(buf));
     G.c_final(ctx,(uint8_t*)buf+ol,&tmp);
     clock_gettime(CLOCK_MONOTONIC, &t1);
     G.ctx_free(ctx);
     double elapsed = (t1.tv_sec-t0.tv_sec)+(t1.tv_nsec-t0.tv_nsec)/1e9;
     double mbps = (16.0*sizeof(buf)) / elapsed / 1e6;
-    return mbps > 300.0 ? "C/EVP+ARM-CE" : "C/EVP+software";
+    arm_hw_cached   = mbps > 300.0 ? 1 : 0;
+    arm_backend_str = arm_hw_cached ? "C/EVP+ARM-CE" : "C/EVP+software";
 }
+static int         cpu_has_aesni(void)  { arm_probe(); return arm_hw_cached; }
+static const char* detect_backend(void) { arm_probe(); return arm_backend_str; }
 #else
 static int cpu_has_aesni(void){return 0;}
 static const char* detect_backend(void){return "C/EVP";}
